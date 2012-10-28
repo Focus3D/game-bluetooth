@@ -1,9 +1,11 @@
 package com.hoan.tank;
 
+import com.hoan.bluetooth.*;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.support.v4.app.NavUtils;
 import com.hoan.dialog.*;
+
 
 public class TankActivity extends Activity {
 
@@ -46,7 +49,9 @@ public class TankActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				Intent i = new Intent(TankActivity.this, RemoteBluetooth.class);
+				TankActivity.this.startActivity(i);
+		//		TankActivity.this.finish();
 				
 			}
 		});

@@ -21,14 +21,16 @@
             android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.nguyenhoan.remotebluetooth.DeviceListActivity"
-                  android:label="@string/select_device"
-                  android:theme="@android:style/Theme.Dialog"
-                  android:configChanges="orientation|keyboardHidden" />
+                <activity android:name="com.hoan.bluetooth.RemoteBluetooth"
+                  android:configChanges="orientation|keyboardHidden" 
+                  android:screenOrientation="landscape"/>
+        <activity android:name="com.hoan.bluetooth.DeviceListActivity"
+                  android:configChanges="orientation|keyboardHidden"
+           		  android:screenOrientation="landscape" />
+
     </application>
 
 </manifest>
