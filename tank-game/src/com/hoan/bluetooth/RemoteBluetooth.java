@@ -1,6 +1,8 @@
 package com.hoan.bluetooth;
 
+import com.hoan.MainGame.MainGameActivity;
 import com.hoan.tank.R;
+import com.hoan.tank.TankActivity;
 
 import android.R.integer;
 import android.annotation.SuppressLint;
@@ -95,7 +97,6 @@ public class RemoteBluetooth extends Activity {
         
         
         mSellectMap.setOnClickListener(new View.OnClickListener() {
-			@Override
 			public void onClick(View v) {
 				int_map++;
 				if(int_map == mMapMax)
@@ -108,10 +109,16 @@ public class RemoteBluetooth extends Activity {
         
         mCreateGame.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) 
 			{
 				mTextviewLayer.setText("DOREMON");
+			}
+		});
+        mStartGame.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				Intent i = new Intent(RemoteBluetooth.this, MainGameActivity.class);
+				RemoteBluetooth.this.startActivity(i);
 			}
 		});
         
