@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/create_background" >
+    
+    <ImageButton
+        android:id="@+id/create_game"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/create_game" />
+
+    <ImageButton
+        android:id="@+id/select_map"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="34dp"
+        android:src="@drawable/selectmap" />
+
+    <ImageButton
+        android:id="@+id/join_game"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="18dp"
+        android:src="@drawable/join" />
+
+    <TextView
+        android:id="@+id/textview_layer"
+        android:background="@drawable/text_background"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/create_game"
+        android:inputType="textMultiLine" />
+
+    <ImageButton
+        android:id="@+id/connect_game"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="95dp"
+        android:src="@drawable/connect" />
+
+    <ImageButton
+        android:id="@+id/select_map_button"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textview_layer"
+        android:layout_marginRight="18dp"
+        android:src="@drawable/map1" />
+
+    <ImageButton
+        android:id="@+id/start_game"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/select_map_button"
+        android:src="@drawable/start" />
+
+</RelativeLayout>
