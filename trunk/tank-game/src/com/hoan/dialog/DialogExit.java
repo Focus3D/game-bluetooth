@@ -20,7 +20,6 @@ public class DialogExit extends Dialog{
 		Button exit = (Button)findViewById(R.id.exit);
 		exit.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View arg0) {
 				bool_thoat = true;
 				if(activity != null)
@@ -31,7 +30,6 @@ public class DialogExit extends Dialog{
 		
 		Button no = (Button)findViewById(R.id.noexit);
 		no.setOnClickListener(new View.OnClickListener() {
-			@Override
 			public void onClick(View arg0) {
 				bool_thoat = false;		
 				DialogExit.this.dismiss();

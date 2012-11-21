@@ -30,6 +30,9 @@
         <activity android:name="com.hoan.bluetooth.DeviceListActivity"
                   android:configChanges="orientation|keyboardHidden"
            		  android:screenOrientation="landscape" />
+        <activity android:name="com.hoan.MainGame.MainGameActivity"
+                  android:configChanges="orientation|keyboardHidden"
+           		  android:screenOrientation="landscape" />
 
     </application>
 

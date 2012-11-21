@@ -1,6 +1,8 @@
 package com.hoan.tank;
 
 import com.hoan.bluetooth.*;
+
+import com.hoan.tank.R;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -36,7 +38,6 @@ public class TankActivity extends Activity {
         single.setOnClickListener(new View.OnClickListener() 
         {
 			
-			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
@@ -47,7 +48,6 @@ public class TankActivity extends Activity {
         multi.setOnClickListener(new View.OnClickListener() 
         {
 			
-			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(TankActivity.this, RemoteBluetooth.class);
 				TankActivity.this.startActivity(i);
@@ -60,7 +60,6 @@ public class TankActivity extends Activity {
         info.setOnClickListener(new View.OnClickListener() 
         {
 			
-			@Override
 			public void onClick(View v) 
 			{
 				DialogInfor dialog_info = new DialogInfor(TankActivity.this);
@@ -73,7 +72,6 @@ public class TankActivity extends Activity {
         {
 			
 			@SuppressLint("ParserError")
-			@Override
 			public void onClick(View v) 
 			{
 				DialogExit dialog_exit = new DialogExit(TankActivity.this, TankActivity.this);
