@@ -30,6 +30,7 @@ import org.anddev.andengine.ui.activity.BaseGameActivity;
 import org.anddev.andengine.util.Debug;
 
 import TileMapDemo.com.Maps.maps;
+import TileMapDemo.com.Player.Player;
 import android.content.Context;
 import android.graphics.YuvImage;
 import android.os.Bundle;
@@ -58,6 +59,8 @@ public class TileMapDemoActivity extends BaseGameActivity {
 		Engine engine = new Engine(new EngineOptions(true,
 				ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(WIDTH,
 						HEIGHT), this.myCamera));
+		
+		player = new Player();
 
 		return engine;
 	}
@@ -72,7 +75,7 @@ public class TileMapDemoActivity extends BaseGameActivity {
 		mEngine.getTextureManager().loadTexture(mBitmapTextureAtlas);
 		
 		
-		this.player.onLoadResources(this.mEngine, this);
+		player.onLoadResources(TileMapDemoActivity.this.mEngine, TileMapDemoActivity.this);
 
 	}
 
@@ -176,43 +179,6 @@ public class TileMapDemoActivity extends BaseGameActivity {
 
 	public void onLoadComplete() {
 		// TODO Auto-generated method stub
-
-	}
-	
-	
-	public class Player {
-
-		private BitmapTextureAtlas player_bitBitmapTextureAtlas;
-		private TiledTextureRegion player_TextureRegion;
-
-		public AnimatedSprite player_AnimatedSprite;
-
-		public void onLoadResources(Engine mEngine, Context mContext) {
-
-			this.player_bitBitmapTextureAtlas = new BitmapTextureAtlas(256, 256,
-					TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-			System.out.print("test");
-			this.player_TextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createTiledFromAsset(player_bitBitmapTextureAtlas, mContext,
-							"tanks.png", 0, 0, 8, 8);
-
-			/*
-			 * player_bitBitmapTextureAtlas = new BitmapTextureAtlas(256, 256,
-			 * TextureOptions.BILINEAR_PREMULTIPLYALPHA); player_TextureRegion =
-			 * BitmapTextureAtlasTextureRegionFactory
-			 * .createTiledFromAsset(player_bitBitmapTextureAtlas, mContext,
-			 * "tanks.png", 0, 0, 8, 8);
-			 */
-
-			mEngine.getTextureManager().loadTexture(player_bitBitmapTextureAtlas);
-		}
-
-		public void onLoadScene(Scene mScene) {
-			player_AnimatedSprite = new AnimatedSprite(33, 132,
-					player_TextureRegion);
-			mScene.attachChild(player_AnimatedSprite);
-		}
-
 	}
 
 }
