@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, BattleTankActivity!</string>
+    <string name="app_name">BattleTank</string>
+    <string name="info">       THÔNG TIN NHÀ PHÁT TRIỂN \n\n
+        Trịnh Phước Hoàng \n
+        s/n: 25/09/1990\n        	</string>
+	<string name="username">UserName</string>
+	<string name="password">PassWord</string>
+    
+
+    <style name="ButtonText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+</resources>
