@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="10" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="AutomappingRadius" value="1"/>
+  <property name="DeleteTiles" value="1"/>
+ </properties>
+ <layer name="ruleSet" width="15" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4D6AAACWAAB
+  </data>
+ </layer>
+ <layer name="ruleRegions" width="15" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4D6AAACWAAB
+  </data>
+ </layer>
+ <layer name="rule_floor" width="15" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4D6AAACWAAB
+  </data>
+ </layer>
+</map>

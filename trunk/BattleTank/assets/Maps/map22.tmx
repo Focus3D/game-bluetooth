@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="10" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="map1" value="map1"/>
+ </properties>
+ <tileset firstgid="1" name="map_tiles_2_1" tilewidth="32" tileheight="32">
+  <image source="Images/map_tiles_2_1.png" width="512" height="256"/>
+ </tileset>
+ <tileset firstgid="129" name="vatcan" tilewidth="32" tileheight="32">
+  <image source="Images/vatcan.png" width="32" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="vatcan" value="vatcan"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="bg" width="15" height="10">
+  <properties>
+   <property name="bg" value="2"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC1NjYGBQowDr4sG45HHpxSauhoXGZy42s4jRi8vNtNZLrpspDSti44hcDABanSUoWAIAAA==
+  </data>
+ </layer>
+ <layer name="vatcan" width="15" height="10">
+  <properties>
+   <property name="vatcan" value="vatcan"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2tkYGBopADjA7jkcenFJt6IhcZnLjaziNGLzQx66CXXzZSGFTb7sZlPLgYAzzHOr1gCAAA=
+  </data>
+ </layer>
+</map>
