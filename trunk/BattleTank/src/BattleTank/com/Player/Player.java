@@ -9,11 +9,12 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextur
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 import android.content.Context;
+import BattleTank.com.Bullets.Bullet;
 import BattleTank.com.InterFaceSprite.InterFaceSprite;
 
 public class Player implements InterFaceSprite {
 
-	private int PLAYER_STATUS = Status_Player.UN_MOVE_UP;
+	public int PLAYER_STATUS = Status_Player.UN_MOVE_UP;
 
 	public AnimatedSprite player;
 	private BitmapTextureAtlas player_BitmapTextureAtlas;
@@ -21,8 +22,13 @@ public class Player implements InterFaceSprite {
 
 	private float positionX = 0;
 	private float positionY = 0;
+	
+	private int max_Bullet = 100;
+	public Bullet[] MyBullet;
 
-	public Player() {
+	public Player(int max_Bullet) {
+		this.max_Bullet = max_Bullet;
+		MyBullet = new Bullet[this.max_Bullet];
 
 	}
 
@@ -36,6 +42,12 @@ public class Player implements InterFaceSprite {
 				.createTiledFromAsset(this.player_BitmapTextureAtlas, mContext,
 						"tanks.png", 0, 0, 8, 8);
 		mEngine.getTextureManager().loadTexture(this.player_BitmapTextureAtlas);
+		
+		for (int i = 0; i < max_Bullet; i++) {
+			MyBullet[i] = new Bullet();
+			MyBullet[i].onLoadResources(mEngine, mContext);
+			
+		}
 
 	}
 
@@ -47,6 +59,11 @@ public class Player implements InterFaceSprite {
 				new long[] { 100, 100, 100, 100, 100, 100, 100, 100 },
 				new int[] { 0, 1, 2, 3, 4, 5, 6, 7 }, 1000);
 		mScene.attachChild(this.player);
+		
+		for (int i = 0; i < max_Bullet; i++) {
+			MyBullet[i].onLoadScene(mScene);
+			
+		}
 
 	}
 
@@ -114,7 +131,7 @@ public class Player implements InterFaceSprite {
 		// AnimatedSprite nào.
 		showPlayerStatus();
 	}
-
+	
 	/*
 	 * 
 	 * 
@@ -256,5 +273,5 @@ public class Player implements InterFaceSprite {
 	public AnimatedSprite getAnimatedSprite() {
 		return this.player;
 	}
-
+	
 }
