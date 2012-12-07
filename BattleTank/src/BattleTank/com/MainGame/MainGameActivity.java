@@ -9,6 +9,7 @@ import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.anddev.andengine.engine.camera.hud.controls.BaseOnScreenControl.IOnScreenControlListener;
 import org.anddev.andengine.engine.camera.hud.controls.DigitalOnScreenControl;
+import org.anddev.andengine.engine.handler.IUpdateHandler;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
@@ -27,6 +28,9 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextur
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
+import android.R.integer;
+import android.os.SystemClock;
+
 import BattleTank.com.Bullets.Bullet;
 import BattleTank.com.ClassStatic.ScreenStatic;
 import BattleTank.com.Maps.Maps;
@@ -39,16 +43,21 @@ public class MainGameActivity extends BaseGameActivity implements
 	private Scene myScene;
 	private Camera MyCamera;
 
+	private int i = 0;
+
 	// Khai báo biến player
 	private Player MyPlayer;
 
 	// Khai báo biến bullet
-	private Bullet MyBullet;
+
+	private int max_Bullet = 100;
+
+	private ArrayList<Bullet> bulletsArrayList = new ArrayList<Bullet>();
+	private boolean bullet_boolean = false;
 
 	//
-	//private ArrayList<Bullets> ArrayBullets = new ArrayList<Bullets>();
-	
-	
+	// private ArrayList<Bullets> ArrayBullets = new ArrayList<Bullets>();
+
 	// Maps
 	private TMXTiledMap mTmxTiledMap;
 	private TMXLayer vatcanTmxLayer;
@@ -61,16 +70,13 @@ public class MainGameActivity extends BaseGameActivity implements
 	private TextureRegion mOnScreenControlBaseTextureRegion;
 	private TextureRegion mOnScreenControlKnobTextureRegion;
 
-	// Khai báo icon Shoot
-
 	private BitmapTextureAtlas shootBitmapTextureAtlas;
 	private TextureRegion shootTextureRegion;
 	private Sprite shoot_Sprite;
 
 	public Engine onLoadEngine() {
 
-		MyPlayer = new Player();
-		MyBullet = new Bullet();
+		MyPlayer = new Player(max_Bullet);
 
 		MyCamera = new Camera(0, 0, ScreenStatic.CAMERA_WIDTH,
 				ScreenStatic.CAMERA_HEIGHT);
@@ -84,9 +90,6 @@ public class MainGameActivity extends BaseGameActivity implements
 
 	public void onLoadResources() {
 		MyPlayer.onLoadResources(MainGameActivity.this.mEngine,
-				MainGameActivity.this);
-
-		MyBullet.onLoadResources(MainGameActivity.this.mEngine,
 				MainGameActivity.this);
 
 		// Load hình ảnh phần điều khiển
@@ -130,6 +133,12 @@ public class MainGameActivity extends BaseGameActivity implements
 		// Load phần player vào Scene
 		MyPlayer.setPositionXY(100, 132);
 		MyPlayer.onLoadScene(myScene);
+
+		// OnLoadScene Bullet
+		for (int i = 0; i < MyPlayer.MyBullet.length; i++) {
+			MyPlayer.MyBullet[i].setTMXTiledMap(mTmxTiledMap);
+			MyPlayer.MyBullet[i].setTMXLayer(vatcanTmxLayer);
+		}
 
 		// Load và xử lý phần điều khiển
 		mDigitalOnScreenControl = new DigitalOnScreenControl(0,
@@ -186,7 +195,6 @@ public class MainGameActivity extends BaseGameActivity implements
 							switch (status_digitalOnScreenControl) {
 							case Status_Player.MOVE_RIGHT:
 								MyPlayer.setStatus_Player(Status_Player.UN_MOVE_RIGHT);
-								System.out.println("Van di chuyen sang phai");
 								break;
 							case Status_Player.MOVE_LEFT:
 								MyPlayer.setStatus_Player(Status_Player.UN_MOVE_LEFT);
@@ -238,28 +246,109 @@ public class MainGameActivity extends BaseGameActivity implements
 		mDigitalOnScreenControl.refreshControlKnobPosition();
 
 		myScene.setChildScene(mDigitalOnScreenControl);
-		
-//--------------------Hết Phần Điều Khiển Nhân Vật---------------------		
-		
 
+		// --------------------Hết Phần Điều Khiển Nhân Vật---------------------
+
+		// -------------------- Phần di chuyển của Viên Đạn Bullet
 		// Load phần Bullet vào Scene
-		MyBullet.onLoadScene(myScene);
 
-		// Load phần shoot vào Scene
-		this.shoot_Sprite = new Sprite(ScreenStatic.CAMERA_WIDTH - this.shootTextureRegion.getWidth(), ScreenStatic.CAMERA_HEIGHT - this.shootTextureRegion.getHeight(), this.shootTextureRegion) {
+		// Xử lý sự kiện khi chạm vào vùng bắn viên đạn SHOOT
+		this.shoot_Sprite = new Sprite(ScreenStatic.CAMERA_WIDTH
+				- this.shootTextureRegion.getWidth(),
+				ScreenStatic.CAMERA_HEIGHT
+						- this.shootTextureRegion.getHeight(),
+				this.shootTextureRegion) {
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
 					final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-			
-				MyBullet.moveXY(100, 100);
-				return true;
+				// for (Bullet myBullet : MyPlayer.MyBullet) {
+				// myBullet.setStatusBullet(MyPlayer.getStatus_Player());
+				// myBullet.StatusMove();
+				// System.out.println("MyPlayer.MyBullet = "
+				// + MyPlayer.MyBullet);
+				// System.out.println("myBullet.getStatusBullet() = "
+				// + myBullet.getStatusBullet());
+				// myBullet.moveXY(
+				// MyPlayer.player.getX() + MyPlayer.player.getWidth()
+				// / 2, MyPlayer.player.getY()
+				// + MyPlayer.player.getHeight() / 2);
+				//
+				// bulletsArrayList.add(myBullet);
+				//
+				// break;
+				//
+				// }
+				if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN) {
+					bullet_boolean = true;
+					return bullet_boolean;
+				}
+				return false;
+
 			}
 		};
+
 		// setAlpha để chỉnh độ rõ hay mờ của hình ảnh
 		this.shoot_Sprite.setAlpha(0.5f);
 		myScene.attachChild(shoot_Sprite);
 		myScene.registerTouchArea(shoot_Sprite);
 
-		
+		myScene.registerUpdateHandler(new IUpdateHandler() {
+
+			public void reset() {
+				// TODO Auto-generated method stub
+
+			}
+
+			public void onUpdate(float pSecondsElapsed) {
+				try {
+					Thread.sleep(20);
+
+					while (bullet_boolean && i < MyPlayer.MyBullet.length) {
+
+						
+							MyPlayer.MyBullet[i].setStatusBullet(MyPlayer
+									.getStatus_Player());
+							MyPlayer.MyBullet[i].StatusMove();
+							System.out.println("i = " + i);
+							MyPlayer.MyBullet[i].moveXY(
+									MyPlayer.player.getX()
+											+ MyPlayer.player.getWidth() / 2,
+									MyPlayer.player.getY()
+											+ MyPlayer.player.getHeight() / 2);
+							i++;
+							bullet_boolean = false;
+
+					}
+					for (Bullet mybullet : MyPlayer.MyBullet) {
+						mybullet.moveBullet();
+					}
+					if(i == 100)
+						i = 0;
+
+					// }
+					//
+
+					// if (bullet_boolean) {
+					//
+					// for (i = 0; i < MyPlayer.MyBullet.length; ) {
+					// MyPlayer.MyBullet[i].setStatusBullet(MyPlayer
+					// .getStatus_Player());
+					// MyPlayer.MyBullet[i].StatusMove();
+					// MyPlayer.MyBullet[i].moveXY(
+					// MyPlayer.player.getX()
+					// + MyPlayer.player.getWidth() / 2,
+					// MyPlayer.player.getY()
+					// + MyPlayer.player.getHeight() / 2);
+					// break;
+					//
+					// }
+					// i++;
+					// bullet_boolean = false;
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+
+			}
+		});
 
 		return myScene;
 	}
@@ -274,66 +363,3 @@ public class MainGameActivity extends BaseGameActivity implements
 		return false;
 	}
 }
-/*
- * private Player MyPlayer;
- * 
- * // Map private TMXTiledMap mTmxTiledMap; private TMXLayer vatcanTmxLayer;
- * 
- * private String TEN_MAPS = "map22.tmx";
- * 
- * // Biến quản lý màn hình private Scene MyScene; private Camera myCamera;
- * 
- * private Scene SceneLoading;
- * 
- * // =========||ON-LOAD-ENGINE ||===========================
- * 
- * public Engine onLoadEngine() { // Khởi tạo vùng hiển thị 480x320
- * this.myCamera = new Camera(0, 0, ScreenStatic.CAMERA_WIDTH,
- * ScreenStatic.CAMERA_HEIGHT); // Yêu cầu màn hình hiển thị nằm ngang
- * Engine engine = new Engine(new EngineOptions(true,
- * ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(
- * ScreenStatic.CAMERA_WIDTH, ScreenStatic.CAMERA_HEIGHT), this.myCamera)); //
- * Kiểm tra thiết bị có hỗ trợ đa điểm hay không try { if
- * (MultiTouch.isSupported(this)) { engine.setTouchController(new
- * MultiTouchController()); if (MultiTouch.isSupportedDistinct(this)) ; //
- * Thiết bị có hỗ trợ else { } } else { } } catch (Exception e) { } return
- * engine; }
- * 
- * public void onLoadResources() { // TODO Auto-generated method stub
- * 
- * }
- * 
- * public Scene onLoadScene() { // this.mEngine.registerUpdateHandler(new
- * FPSLogger());
- * 
- * MyScene = new Scene(); MyScene.setBackground(new ColorBackground(0.09804f,
- * 0.6274f, 0.8784f));
- * 
- * // MyScene.setOnAreaTouchTraversalFrontToBack(); //
- * MyScene.setOnSceneTouchListener(SceneTouchListener); //
- * MyScene.setTouchAreaBindingEnabled(true); //
- * MyScene.registerUpdateHandler(UpdateHandler);
- * 
- * // Load maps
- * 
- * mTmxTiledMap = Maps.getTmxTiledMap(MyScene, mEngine, this, TEN_MAPS);
- * 
- * ArrayList<TMXLayer> mapLayers = mTmxTiledMap.getTMXLayers(); for (TMXLayer
- * layer : mapLayers) { if (layer.getName().equals("vatcan")) { vatcanTmxLayer =
- * layer;// Nếu là vật cản thì không cho hiện thị System.out.println("vật cản");
- * continue; } MyScene.attachChild(layer); }
- * 
- * 
- * return MyScene; }
- * 
- * public void onLoadComplete() { // TODO Auto-generated method stub
- * 
- * }
- * 
- * public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
- * // TODO Auto-generated method stub return false; }
- * 
- * // =========||ON-LOAD-COMPLETE ||===========================
- * 
- * }
- */

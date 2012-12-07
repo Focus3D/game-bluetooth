@@ -19,7 +19,7 @@
    <property name="bg" value="2"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC1NjYGBQowDr4sG45HHpxSauhoXGZy42s4jRi8vNtNZLrpspDSti44hcDABanSUoWAIAAA==
+   H4sIAAAAAAAAC1NjYGBQowDrQrEqFOsSgdH1koIJ6RWFYnrbOxTcTE4ckYsBA1+c21gCAAA=
   </data>
  </layer>
  <layer name="vatcan" width="15" height="10">
@@ -27,7 +27,7 @@
    <property name="vatcan" value="vatcan"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2tkYGBopADjA7jkcenFJt6IhcZnLjaziNGLzQx66CXXzZSGFTb7sZlPLgYAzzHOr1gCAAA=
+   H4sIAAAAAAAAC2tkYGBopADDADofHyBFLal68cnT0l5K9NLLzeTEEbkYAKIyzZ1YAgAA
   </data>
  </layer>
 </map>
