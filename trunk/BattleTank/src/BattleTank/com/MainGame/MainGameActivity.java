@@ -33,6 +33,7 @@ import android.os.SystemClock;
 
 import BattleTank.com.Bullets.Bullet;
 import BattleTank.com.ClassStatic.ScreenStatic;
+import BattleTank.com.Fog.Fog;
 import BattleTank.com.Maps.Maps;
 import BattleTank.com.Player.Player;
 import BattleTank.com.Player.Status_Player;
@@ -45,11 +46,13 @@ public class MainGameActivity extends BaseGameActivity implements
 
 	private int i = 0;
 
+	//Khai báo biến Fog- màn sương
+	private Fog myFog;
+	
 	// Khai báo biến player
 	private Player MyPlayer;
 
 	// Khai báo biến bullet
-
 	private int max_Bullet = 100;
 
 	private ArrayList<Bullet> bulletsArrayList = new ArrayList<Bullet>();
@@ -76,7 +79,10 @@ public class MainGameActivity extends BaseGameActivity implements
 
 	public Engine onLoadEngine() {
 
+		myFog = new Fog();
+		
 		MyPlayer = new Player(max_Bullet);
+		
 
 		MyCamera = new Camera(0, 0, ScreenStatic.CAMERA_WIDTH,
 				ScreenStatic.CAMERA_HEIGHT);
@@ -89,6 +95,10 @@ public class MainGameActivity extends BaseGameActivity implements
 	}
 
 	public void onLoadResources() {
+		
+		myFog.onLoadResources(MainGameActivity.this.mEngine, MainGameActivity.this);
+		
+		
 		MyPlayer.onLoadResources(MainGameActivity.this.mEngine,
 				MainGameActivity.this);
 
@@ -290,6 +300,16 @@ public class MainGameActivity extends BaseGameActivity implements
 		this.shoot_Sprite.setAlpha(0.5f);
 		myScene.attachChild(shoot_Sprite);
 		myScene.registerTouchArea(shoot_Sprite);
+		
+// FOG - MÀN SƯƠNG	
+		myFog.onLoadScene(myScene);
+		
+		
+		
+		
+		
+		
+		
 
 		myScene.registerUpdateHandler(new IUpdateHandler() {
 
@@ -311,9 +331,9 @@ public class MainGameActivity extends BaseGameActivity implements
 							System.out.println("i = " + i);
 							MyPlayer.MyBullet[i].moveXY(
 									MyPlayer.player.getX()
-											+ MyPlayer.player.getWidth() / 2,
+											,
 									MyPlayer.player.getY()
-											+ MyPlayer.player.getHeight() / 2);
+											);
 							i++;
 							bullet_boolean = false;
 
@@ -343,6 +363,10 @@ public class MainGameActivity extends BaseGameActivity implements
 					// }
 					// i++;
 					// bullet_boolean = false;
+					
+					// Màn sương đi theo xe tank
+					
+					myFog.Fog_move(MyPlayer.getPositionX() - 480 + MyPlayer.player.getWidth()/2, MyPlayer.getPositionY() - 320 + MyPlayer.player.getHeight()/2);
 				} catch (Exception e) {
 					// TODO: handle exception
 				}

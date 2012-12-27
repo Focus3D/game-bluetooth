@@ -7,11 +7,13 @@ import org.anddev.andengine.entity.layer.tiled.tmx.TMXTile;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXTileProperty;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXTiledMap;
 import org.anddev.andengine.entity.scene.Scene;
+import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 import android.content.Context;
 import android.graphics.YuvImage;
@@ -31,20 +33,20 @@ public class Bullet implements InterFaceSprite {
 
 	// Khai báo các biến load hình ảnh viện đạn
 	private BitmapTextureAtlas bulletBitmapTextureAtlas;
-	private TextureRegion bulletTextureRegion;
-	public Sprite bullet_Sprite;
+	private TiledTextureRegion bulletTextureRegion;
+	public AnimatedSprite bullet_Sprite;
 
 	// Khai báo giá vị trí viên đạn ban đầu nằm ở ngoài màn hình
 	private float pX = -100;
 	private float pY = -100;
 
 	// Khai báo biến speed - tốc độ di chuyển của viên đạn
-	private int speed = 5;
+	private int speed = 1;
 
 	// Khai báo biến Nổ
 	private No no;
 	long time_no = 0;
-	
+
 	// khai báo biến TileMap
 	private TMXTiledMap mTMXTiledMap;
 	private TMXLayer VatCanTmxLayer;
@@ -54,26 +56,29 @@ public class Bullet implements InterFaceSprite {
 	}
 
 	public void onLoadResources(Engine mEngine, Context mContext) {
-		// Load nổ vào 
+		// Load nổ vào
 		no = new No(pX, pY);
 		no.onLoadResources(mEngine, mContext);
 		// Load viên đạn vào
 		BitmapTextureAtlasTextureRegionFactory
 				.setAssetBasePath("Images/Bullets/");
-		this.bulletBitmapTextureAtlas = new BitmapTextureAtlas(32, 32,
+		this.bulletBitmapTextureAtlas = new BitmapTextureAtlas(128, 16,
 				TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		this.bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
-				.createFromAsset(this.bulletBitmapTextureAtlas, mContext,
-						"Bullet.png", 0, 0);
+				.createTiledFromAsset(bulletBitmapTextureAtlas, mContext,
+						"dan1.png", 0, 0, 4, 1);
 		mEngine.getTextureManager().loadTexture(this.bulletBitmapTextureAtlas);
 	}
 
 	public void onLoadScene(Scene mScene) {
-		this.bullet_Sprite = new Sprite(pX, pY, this.bulletTextureRegion);
+		this.bullet_Sprite = new AnimatedSprite(pX, pY,
+				this.bulletTextureRegion);
+		// this.bullet_Sprite.animate(new long[] { 100, 100, 100, 100 },
+		// new int[] { 9, 9, 10, 11 }, 1000);
 		mScene.attachChild(bullet_Sprite);
 		no.onLoadScene(mScene);
 		no.no_AnimatedSprite.setVisible(false);
-		
+
 	}
 
 	/**
@@ -94,27 +99,35 @@ public class Bullet implements InterFaceSprite {
 		switch (this.STATUS_BULLET) {
 		case Status_Bullet.MOVE_LEFT:
 			this.bullet_Sprite.setRotation(180);
+			this.bullet_Sprite.animate(100);
 			break;
 		case Status_Bullet.MOVE_RIGHT:
 			this.bullet_Sprite.setRotation(0);
+			this.bullet_Sprite.animate(100);
 			break;
 		case Status_Bullet.MOVE_UP:
 			this.bullet_Sprite.setRotation(-90);
+			this.bullet_Sprite.animate(100);
 			break;
 		case Status_Bullet.MOVE_DOWN:
 			this.bullet_Sprite.setRotation(90);
+			this.bullet_Sprite.animate(100);
 			break;
 		case Status_Bullet.UN_MOVE_LEFT:
 			this.bullet_Sprite.setRotation(180);
+			this.bullet_Sprite.animate(100);
 			break;
 		case Status_Bullet.UN_MOVE_RIGHT:
 			this.bullet_Sprite.setRotation(0);
+			this.bullet_Sprite.animate(100);
 			break;
 		case Status_Bullet.UN_MOVE_UP:
 			this.bullet_Sprite.setRotation(-90);
+			this.bullet_Sprite.animate(100);
 			break;
 		case Status_Bullet.UN_MOVE_DOWN:
 			this.bullet_Sprite.setRotation(90);
+			this.bullet_Sprite.animate(100);
 			break;
 		default:
 			break;
@@ -153,50 +166,59 @@ public class Bullet implements InterFaceSprite {
 	public void moveBullet() {
 		// Trái
 		this.bullet_Sprite.setVisible(true);
-		if (!collidesWith(this.bullet_Sprite.getX(), this.bullet_Sprite.getY()) && !collidesWith(
-				this.bullet_Sprite.getX(), this.bullet_Sprite.getY()
-						+ this.bullet_Sprite.getHeight())
+		if (!collidesWith(this.bullet_Sprite.getX(), this.bullet_Sprite.getY())
+				&& !collidesWith(
+						this.bullet_Sprite.getX(),
+						this.bullet_Sprite.getY()
+								+ this.bullet_Sprite.getHeight())
 				&& this.bullet_Sprite.getRotation() == 180)
 			moveRelaviteXY(-speed, 0);
 		// Phải
 		else if (!collidesWith(
 				this.bullet_Sprite.getX() + this.bullet_Sprite.getWidth(),
-				this.bullet_Sprite.getY() - 2) && !collidesWith(
-						this.bullet_Sprite.getX() + this.bullet_Sprite.getWidth(),
-						this.bullet_Sprite.getY() + this.bullet_Sprite.getHeight() + 2)
+				this.bullet_Sprite.getY() - 2)
+				&& !collidesWith(
+						this.bullet_Sprite.getX()
+								+ this.bullet_Sprite.getWidth(),
+						this.bullet_Sprite.getY()
+								+ this.bullet_Sprite.getHeight() + 2)
 				&& this.bullet_Sprite.getRotation() == 0)
 			moveRelaviteXY(speed, 0);
 
 		// Lên
 		else if (!collidesWith(
 				this.bullet_Sprite.getX() + this.bullet_Sprite.getWidth() - 2,
-				this.bullet_Sprite.getY()) && !collidesWith(
-						this.bullet_Sprite.getX() + 2,
+				this.bullet_Sprite.getY())
+				&& !collidesWith(this.bullet_Sprite.getX() + 2,
 						this.bullet_Sprite.getY())
 				&& this.bullet_Sprite.getRotation() == -90)
 			moveRelaviteXY(0, -speed);
 		// Xuống
-		else if (!collidesWith(
-				this.bullet_Sprite.getX() + 2,
+		else if (!collidesWith(this.bullet_Sprite.getX() + 2,
 				this.bullet_Sprite.getY() + this.bullet_Sprite.getHeight())
 				&& !collidesWith(
-						this.bullet_Sprite.getX() + this.bullet_Sprite.getWidth() - 2,
-						this.bullet_Sprite.getY() + this.bullet_Sprite.getHeight())
-						&& this.bullet_Sprite.getRotation() == 90)
+						this.bullet_Sprite.getX()
+								+ this.bullet_Sprite.getWidth() - 2,
+						this.bullet_Sprite.getY()
+								+ this.bullet_Sprite.getHeight())
+				&& this.bullet_Sprite.getRotation() == 90)
 			moveRelaviteXY(0, speed);
 		else {
 			Delay_No();
 		}
 	}
-	
-	public void Delay_No(){
-		no.moveXY(this.bullet_Sprite.getX() + this.bullet_Sprite.getWidth() / 2, this.bullet_Sprite.getY() + this.bullet_Sprite.getHeight() / 2);
+
+	public void Delay_No() {
+		no.moveXY(
+				this.bullet_Sprite.getX() + this.bullet_Sprite.getWidth() / 2,
+				this.bullet_Sprite.getY() + this.bullet_Sprite.getHeight() / 2);
 		no.no_AnimatedSprite.setVisible(true);
 		time_no = 0;
 		time_no = SystemClock.elapsedRealtime();
-		if(SystemClock.elapsedRealtime() - time_no > 1000) {
-			System.out.println("SystemClock.elapsedRealtime() - time_no" + (SystemClock.elapsedRealtime() - time_no));
-			
+		if (SystemClock.elapsedRealtime() - time_no > 1000) {
+			System.out.println("SystemClock.elapsedRealtime() - time_no"
+					+ (SystemClock.elapsedRealtime() - time_no));
+
 			no.moveXY(-100, -100);
 			no.no_AnimatedSprite.setVisible(false);
 		}
@@ -261,7 +283,7 @@ public class Bullet implements InterFaceSprite {
 		TMXTile mTMXTile = VatCanTmxLayer.getTMXTileAt(pX, pY);
 		try {
 			if (mTMXTile == null) {
-				//System.out.println("mTMXTile = null");
+				// System.out.println("mTMXTile = null");
 			} else {
 				TMXProperties<TMXTileProperty> mTMXProperties = mTMXTile
 						.getTMXTileProperties(mTMXTiledMap);
@@ -276,7 +298,7 @@ public class Bullet implements InterFaceSprite {
 		}
 	}
 
-	private Sprite getSprite() {
+	private AnimatedSprite getSprite() {
 		return this.bullet_Sprite;
 	}
 }
