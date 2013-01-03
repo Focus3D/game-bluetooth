@@ -20,6 +20,7 @@ import org.anddev.andengine.entity.layer.tiled.tmx.TMXTileProperty;
 import org.anddev.andengine.entity.layer.tiled.tmx.TMXTiledMap;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
+import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.TextureOptions;
@@ -32,7 +33,9 @@ import android.R.integer;
 import android.os.SystemClock;
 
 import BattleTank.com.Bullets.Bullet;
+import BattleTank.com.Bullets.Status_Bullet;
 import BattleTank.com.ClassStatic.ScreenStatic;
+import BattleTank.com.Enemy.Enemy;
 import BattleTank.com.Fog.Fog;
 import BattleTank.com.Maps.Maps;
 import BattleTank.com.Player.Player;
@@ -44,7 +47,10 @@ public class MainGameActivity extends BaseGameActivity implements
 	private Scene myScene;
 	private Camera MyCamera;
 
+	
+	// Các biến phụ
 	private int i = 0;
+    private Sprite A, B;
 
 	//Khai báo biến Fog- màn sương
 	private Fog myFog;
@@ -52,15 +58,18 @@ public class MainGameActivity extends BaseGameActivity implements
 	// Khai báo biến player
 	private Player MyPlayer;
 
-	// Khai báo biến bullet
-	private int max_Bullet = 100;
-
 	private ArrayList<Bullet> bulletsArrayList = new ArrayList<Bullet>();
 	private boolean bullet_boolean = false;
 
-	//
-	// private ArrayList<Bullets> ArrayBullets = new ArrayList<Bullets>();
-
+	// Khai báo biến enemy
+	private Enemy MyEnemy;
+	// Số quân địch
+    private int MAX_SO_ENEMY = 5;
+    // Là số quái vật mà người chơi phải tiêu diệt
+    private int SO_ENEMY_CAN_TIEU_DIET = 10;
+    //Khi tiêu diệt đủ số quái thì sẽ được tăng level
+    private int DEM_SO_QUAI_BI_TIEU_DIET = 0;
+	
 	// Maps
 	private TMXTiledMap mTmxTiledMap;
 	private TMXLayer vatcanTmxLayer;
@@ -81,9 +90,12 @@ public class MainGameActivity extends BaseGameActivity implements
 
 		myFog = new Fog();
 		
-		MyPlayer = new Player(max_Bullet);
+		MyPlayer = new Player();
 		
-
+		// Khai báo Enemy
+		MyEnemy = new Enemy(MAX_SO_ENEMY);
+		
+		
 		MyCamera = new Camera(0, 0, ScreenStatic.CAMERA_WIDTH,
 				ScreenStatic.CAMERA_HEIGHT);
 		Engine engine = new Engine(new EngineOptions(true,
@@ -96,11 +108,13 @@ public class MainGameActivity extends BaseGameActivity implements
 
 	public void onLoadResources() {
 		
-		myFog.onLoadResources(MainGameActivity.this.mEngine, MainGameActivity.this);
+		myFog.onLoadResources(MainGameActivity.this.mEngine, MainGameActivity.this);		
+		
+		MyPlayer.onLoadResources(MainGameActivity.this.mEngine, MainGameActivity.this);
+		
+		MyEnemy.onLoadResources(MainGameActivity.this.mEngine, MainGameActivity.this);
 		
 		
-		MyPlayer.onLoadResources(MainGameActivity.this.mEngine,
-				MainGameActivity.this);
 
 		// Load hình ảnh phần điều khiển
 		BitmapTextureAtlasTextureRegionFactory
@@ -126,8 +140,9 @@ public class MainGameActivity extends BaseGameActivity implements
 	}
 
 	public Scene onLoadScene() {
-		myScene = new Scene();
-
+		myScene = new Scene();	
+		
+		
 		// Load maps
 		mTmxTiledMap = Maps.getTmxTiledMap(myScene, mEngine, this, TEN_MAPS);
 		ArrayList<TMXLayer> mapLayers = mTmxTiledMap.getTMXLayers();
@@ -143,12 +158,21 @@ public class MainGameActivity extends BaseGameActivity implements
 		// Load phần player vào Scene
 		MyPlayer.setPositionXY(100, 132);
 		MyPlayer.onLoadScene(myScene);
-
+		
+		// load phần Enemy vào Scene
+		MyEnemy.onLoadScene(myScene);
+		MyEnemy.setTMXTiledMap(mTmxTiledMap);
+		MyEnemy.setTMXLayer(vatcanTmxLayer);
+		
+		// Thực hiện việc load ngẫu nhiên kẻ thù lên màn hình
+		MyEnemy.reset();
+		
+		
 		// OnLoadScene Bullet
-		for (int i = 0; i < MyPlayer.MyBullet.length; i++) {
-			MyPlayer.MyBullet[i].setTMXTiledMap(mTmxTiledMap);
-			MyPlayer.MyBullet[i].setTMXLayer(vatcanTmxLayer);
-		}
+				for (int i = 0; i < MyPlayer.MyBullet.length; i++) {
+					MyPlayer.MyBullet[i].setTMXTiledMap(mTmxTiledMap);
+					MyPlayer.MyBullet[i].setTMXLayer(vatcanTmxLayer);
+				}
 
 		// Load và xử lý phần điều khiển
 		mDigitalOnScreenControl = new DigitalOnScreenControl(0,
@@ -270,29 +294,14 @@ public class MainGameActivity extends BaseGameActivity implements
 				this.shootTextureRegion) {
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
 					final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				// for (Bullet myBullet : MyPlayer.MyBullet) {
-				// myBullet.setStatusBullet(MyPlayer.getStatus_Player());
-				// myBullet.StatusMove();
-				// System.out.println("MyPlayer.MyBullet = "
-				// + MyPlayer.MyBullet);
-				// System.out.println("myBullet.getStatusBullet() = "
-				// + myBullet.getStatusBullet());
-				// myBullet.moveXY(
-				// MyPlayer.player.getX() + MyPlayer.player.getWidth()
-				// / 2, MyPlayer.player.getY()
-				// + MyPlayer.player.getHeight() / 2);
-				//
-				// bulletsArrayList.add(myBullet);
-				//
-				// break;
-				//
-				// }
 				if(pSceneTouchEvent.getAction() == TouchEvent.ACTION_DOWN) {
-					bullet_boolean = true;
+					shoot_Sprite.setAlpha(1.0f);
+					bullet_boolean  = true;
 					return bullet_boolean;
 				}
-				return false;
-
+				shoot_Sprite.setAlpha(0.5f);
+				return bullet_boolean = false;
+				
 			}
 		};
 
@@ -303,14 +312,11 @@ public class MainGameActivity extends BaseGameActivity implements
 		
 // FOG - MÀN SƯƠNG	
 		myFog.onLoadScene(myScene);
-		
-		
-		
-		
-		
-		
-		
 
+		/**
+		Vòng lặp game UPDATEHANDLER
+		 */
+		
 		myScene.registerUpdateHandler(new IUpdateHandler() {
 
 			public void reset() {
@@ -319,54 +325,47 @@ public class MainGameActivity extends BaseGameActivity implements
 			}
 
 			public void onUpdate(float pSecondsElapsed) {
+				
+				// Thiết lập vòng lặp, sau 20ms sẽ thay đổi 1 lần
 				try {
 					Thread.sleep(20);
-
-					while (bullet_boolean && i < MyPlayer.MyBullet.length) {
-
-						
-							MyPlayer.MyBullet[i].setStatusBullet(MyPlayer
-									.getStatus_Player());
-							MyPlayer.MyBullet[i].StatusMove();
-							System.out.println("i = " + i);
-							MyPlayer.MyBullet[i].moveXY(
-									MyPlayer.player.getX()
-											,
-									MyPlayer.player.getY()
-											);
-							i++;
-							bullet_boolean = false;
-
+					
+					for(int i=0;i<MyEnemy.max_enemy;i++){
+						if(MyEnemy.enemy_src[i].enemy_src_AnimatedSprite.isVisible())
+							MyEnemy.enemy_src[i].moveRandom();
+					}
+					/*	
+					//Nếu quái vật nào mà ở trạng thái ẩn thì ta cho hiện thị lên.
+					//Với điều kiện là số quái vật cần phải tiêu diệt lơn hơn so với tổng số quái vật có
+					if(SO_ENEMY_CAN_TIEU_DIET - DEM_SO_QUAI_BI_TIEU_DIET >= MAX_SO_ENEMY){
+						if(!MyEnemy.enemy_src[i].enemy_src_AnimatedSprite.isVisible())
+							MyEnemy.enemy_src[i].bool_reset = true;
+						}
+					
+					*/
+					while (bullet_boolean && i < MyPlayer.MyBullet.length) {						
+						MyPlayer.MyBullet[i].setStatusBullet(MyPlayer.getStatus_Player());
+						MyPlayer.MyBullet[i].StatusMove();
+						if(MyPlayer.MyBullet[i].getStatusBullet() == Status_Bullet.MOVE_UP || MyPlayer.MyBullet[i].getStatusBullet() == Status_Bullet.UN_MOVE_UP)
+						MyPlayer.MyBullet[i].moveXY(MyPlayer.player.getX(),MyPlayer.player.getY() - MyPlayer.player.getHeight()/2);
+						if(MyPlayer.MyBullet[i].getStatusBullet() == Status_Bullet.MOVE_DOWN || MyPlayer.MyBullet[i].getStatusBullet() == Status_Bullet.UN_MOVE_DOWN)
+							MyPlayer.MyBullet[i].moveXY(MyPlayer.player.getX(),MyPlayer.player.getY() + MyPlayer.player.getHeight());
+						if(MyPlayer.MyBullet[i].getStatusBullet() == Status_Bullet.MOVE_LEFT || MyPlayer.MyBullet[i].getStatusBullet() == Status_Bullet.UN_MOVE_LEFT)
+							MyPlayer.MyBullet[i].moveXY(MyPlayer.player.getX() - MyPlayer.player.getWidth()/2, MyPlayer.player.getY() + MyPlayer.player.getHeight() / 4);
+						if(MyPlayer.MyBullet[i].getStatusBullet() == Status_Bullet.MOVE_RIGHT || MyPlayer.MyBullet[i].getStatusBullet() == Status_Bullet.UN_MOVE_RIGHT)
+							MyPlayer.MyBullet[i].moveXY(MyPlayer.player.getX() + MyPlayer.player.getWidth()/2,MyPlayer.player.getY() + MyPlayer.player.getHeight() / 4);		
+						i++;
+						bullet_boolean = false;
 					}
 					for (Bullet mybullet : MyPlayer.MyBullet) {
 						mybullet.moveBullet();
 					}
-					if(i == 100)
+					if(i == MyPlayer.MyBullet.length)
 						i = 0;
-
-					// }
-					//
-
-					// if (bullet_boolean) {
-					//
-					// for (i = 0; i < MyPlayer.MyBullet.length; ) {
-					// MyPlayer.MyBullet[i].setStatusBullet(MyPlayer
-					// .getStatus_Player());
-					// MyPlayer.MyBullet[i].StatusMove();
-					// MyPlayer.MyBullet[i].moveXY(
-					// MyPlayer.player.getX()
-					// + MyPlayer.player.getWidth() / 2,
-					// MyPlayer.player.getY()
-					// + MyPlayer.player.getHeight() / 2);
-					// break;
-					//
-					// }
-					// i++;
-					// bullet_boolean = false;
 					
-					// Màn sương đi theo xe tank
-					
+					// Màn sương di theo xe tank					
 					myFog.Fog_move(MyPlayer.getPositionX() - 480 + MyPlayer.player.getWidth()/2, MyPlayer.getPositionY() - 320 + MyPlayer.player.getHeight()/2);
+					
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -386,4 +385,6 @@ public class MainGameActivity extends BaseGameActivity implements
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
 }
