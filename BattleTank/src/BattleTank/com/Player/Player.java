@@ -1,5 +1,7 @@
 package BattleTank.com.Player;
 
+import java.util.ArrayList;
+
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
@@ -23,13 +25,11 @@ public class Player implements InterFaceSprite {
 	private float positionX = 0;
 	private float positionY = 0;
 	
-	private int max_Bullet = 100;
-	public Bullet[] MyBullet;
+	public Bullet[] MyBullet = new Bullet[10];
+	
+//	public ArrayList<Bullet> MyBullet = new ArrayList<Bullet>();
 
-	public Player(int max_Bullet) {
-		this.max_Bullet = max_Bullet;
-		MyBullet = new Bullet[this.max_Bullet];
-
+	public Player() {
 	}
 
 	public void onLoadResources(Engine mEngine, Context mContext) {
@@ -43,28 +43,27 @@ public class Player implements InterFaceSprite {
 						"tanks.png", 0, 0, 8, 8);
 		mEngine.getTextureManager().loadTexture(this.player_BitmapTextureAtlas);
 		
-		for (int i = 0; i < max_Bullet; i++) {
+		// Thực hiện load toàn bộ số viên đạn vào
+		for (int i = 0; i < MyBullet.length; i++) {
 			MyBullet[i] = new Bullet();
-			MyBullet[i].onLoadResources(mEngine, mContext);
-			
+			MyBullet[i].onLoadResources(mEngine, mContext);			
 		}
-
+		
+		
 	}
 
 	public void onLoadScene(Scene mScene) {
 		this.player = new AnimatedSprite(positionX, positionY,
 				this.player_TiledTextureRegion);
 		showPlayerStatus();
-		this.player.animate(
-				new long[] { 100, 100, 100, 100, 100, 100, 100, 100 },
-				new int[] { 0, 1, 2, 3, 4, 5, 6, 7 }, 1000);
+		this.player.animate(new long[] { 100, 100, 100, 100, 100, 100, 100, 100 }, new int[] { 0, 1, 2, 3, 4, 5, 6, 7 }, 1000);
 		mScene.attachChild(this.player);
 		
-		for (int i = 0; i < max_Bullet; i++) {
-			MyBullet[i].onLoadScene(mScene);
-			
+		// Thực hiện việc load toàn bộ số viên đạn
+		for (int i = 0; i < MyBullet.length; i++) {
+			MyBullet[i].onLoadScene(mScene);			
 		}
-
+		
 	}
 
 	// ===============POSITION==============//
