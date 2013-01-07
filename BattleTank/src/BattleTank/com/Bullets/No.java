@@ -10,6 +10,7 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextur
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 import android.content.Context;
+import android.os.SystemClock;
 import BattleTank.com.InterFaceSprite.InterFaceSprite;
 
 public class No implements InterFaceSprite {
@@ -24,12 +25,10 @@ public class No implements InterFaceSprite {
 	public AnimatedSprite no_AnimatedSprite;
 
 	// Khai báo các biến vị trí, ban đầu vị trí là X =0 , Y = 0
-	private float pX = 0;
-	private float pY = 0;
+	private float pX = -100;
+	private float pY = -100;
 	
-	public No(float pX, float pY) {
-		this.pX = pX;
-		this.pY = pY;
+	public No() {
 	}
 	
 /**	
@@ -37,8 +36,8 @@ Phương thức OnLoadResources
 */
 	public void onLoadResources(Engine mEngine, Context mContext) {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("Images/Bullets/");
-		mBitmapTextureAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		mTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTextureAtlas, mContext, "no.png", 0, 0, 5, 5);
+		mBitmapTextureAtlas = new BitmapTextureAtlas(256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		mTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTextureAtlas, mContext, "bum.png", 0, 0, 4, 4);
 		mEngine.getTextureManager().loadTexture(mBitmapTextureAtlas);
 		
 	}
@@ -48,17 +47,19 @@ Phương thức OnLoadScene
 */
 	public void onLoadScene(Scene mScene) {
 		no_AnimatedSprite = new AnimatedSprite(pX, pY, mTiledTextureRegion);
-		no_AnimatedSprite.animate(60);
+		no_AnimatedSprite.setPosition(-100, -100);
+		this.no_AnimatedSprite.animate(60);
 		mScene.attachChild(no_AnimatedSprite);		
 	}
 	
 /**	
 Phương thức di chuyển đến vị trí X,Y
 */
+	
 	public void moveXY(float pX, float pY){
 		this.pX = pX;
 		this.pY = pY;
-		this.no_AnimatedSprite.setPosition(pX, pY);
+		this.no_AnimatedSprite.setPosition(pX, pY);			
 		this.no_AnimatedSprite.setVisible(false);
 	}
 }

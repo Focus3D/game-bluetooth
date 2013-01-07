@@ -33,6 +33,9 @@ public class Enemy implements InterFaceSprite {
 	// Khai báo các biến làm việc với map
 	private TMXTiledMap mTmxTiledMap;
 	private TMXLayer VatCanTmxLayer;
+	
+	//
+	public Bullet[] enemy_bullet;
 
 	//
 	private Scene mScene;
@@ -45,6 +48,8 @@ public class Enemy implements InterFaceSprite {
 		this.max_enemy = max_enemy;
 		enemy_src = new Enemy_src[this.max_enemy];
 		enemy_TiledTextureRegion = new TiledTextureRegion[this.max_enemy];
+		enemy_bullet = new Bullet[this.max_enemy];
+				
 	}
 
 	// ==================================================================================
@@ -58,13 +63,16 @@ public class Enemy implements InterFaceSprite {
 		BitmapTextureAtlasTextureRegionFactory
 				.setAssetBasePath("Images/player/");
 
-		for (int i = 0; i < this.max_enemy; i++)
+		for (int i = 0; i < this.max_enemy; i++) {
 			this.enemy_TiledTextureRegion[i] = BitmapTextureAtlasTextureRegionFactory
 					.createTiledFromAsset(enemy_BitmapTextureAtlas, mContext,
 							"tanks.png", 0, 0, 8, 8);
 		mEngine.getTextureManager().loadTexture(enemy_BitmapTextureAtlas);
-		
-		
+		}
+		for (int j = 0; j < this.max_enemy; j++) {
+			this.enemy_bullet[j] = new Bullet();
+			this.enemy_bullet[j].onLoadResources(mEngine, mContext);		
+		}
 	}
 
 	// ==================================================================================
@@ -76,10 +84,9 @@ public class Enemy implements InterFaceSprite {
 		this.mScene = mScene;
 		for (int i = 0; i < this.max_enemy; i++) {
 			enemy_src[i] = new Enemy_src(this, mScene, -100, -100,
-					this.enemy_TiledTextureRegion[i]);
+					this.enemy_TiledTextureRegion[i]);		
+		this.enemy_bullet[i].onLoadScene(mScene);	
 		}
-		
-
 	}
 
 	// ==================================================================================
