@@ -7,3 +7,7 @@ Ngày 27/12/2012
 Hoàng : viên đạn bay đẹp rồi( có điều mảng viên đạn chưa ngộ ra cách làm hay sao ấy, làm chạy vòng for gà như chưa từng gà, hix, cần khắc phục chỗ này, hehe.) màn sương cũng ổn rồi, chạy tốt, muốn thêm hiểu ứng cho nó mà sợ không xử lý nổi, chát wa :)):)):))
 làm lại dc cái giao diện đầu game, khá cool, có hình ảnh đã thiết kế, các imagebutton cũng rất đẹp, tuy chưa có hiểu ứng tốt cho mấy. mà vái vụ imagebutton nó không thay đổi kích thước khi thay đổi màn hình, đang đâu đầu wa.
 hi vọng buổi chiều sẽ có tiến triển ở chỗ bullet :D
+
+Ngày 07/01/2013
+Hoàng : hoàn thành thêm kẻ địch trong game. Tuy chưa cho nó bắn được, hix, đang cố gắng thêm phần này.
+Gần xong phần single của game. Gặp khó khăn khi làm phần nổ xe tăng T_T, hix
