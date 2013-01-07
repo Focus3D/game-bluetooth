@@ -200,6 +200,13 @@ public class Bullet implements InterFaceSprite {
 		}		
 	}
 
+	
+	public void delay_no() {
+		
+	}
+	
+	
+	
 	public void moveX(float moveX) {
 		this.pX = moveX;
 		moveBullet();

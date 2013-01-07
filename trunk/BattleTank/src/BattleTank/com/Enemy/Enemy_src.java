@@ -7,6 +7,7 @@ import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 
 import android.content.Context;
 import android.os.SystemClock;
+import BattleTank.com.Bullets.Bullet;
 import BattleTank.com.Bullets.Status_Bullet;
 import BattleTank.com.InterFaceSprite.InterFaceSprite;
 import BattleTank.com.Player.Status_Player;
@@ -25,7 +26,7 @@ public class Enemy_src {
 
 	// Khai báo đối tượng quái vật
 	private Enemy enemy;
-
+	
 	// Xác định xem quái vật này là loại nào. Hiện tại có 7 loại
 	private int loai = 0;
 
@@ -33,20 +34,23 @@ public class Enemy_src {
 	/**
 	 * Phương thức khởi dựng có tham số.
 	 * 
-	 * @param quaivat
+	 * @param enemy
 	 * @param mScene
 	 * @param pX
 	 * @param pY
-	 * @param Quaivat_TiledTextureRegion
+	 * @param enemy_TiledTextureRegion
 	 */
 	public Enemy_src(Enemy enemy, Scene mScene, float pX, float pY,
-			TiledTextureRegion Quaivat_TiledTextureRegion) {
+			TiledTextureRegion Enemy_TiledTextureRegion) {
+		
 		this.enemy = enemy;
 		this.mScene = mScene;
 		loai = Tools.getRandomIndex(0, 6);
 		enemy_src_AnimatedSprite = new AnimatedSprite(pX, pY,
-				Quaivat_TiledTextureRegion);
+				Enemy_TiledTextureRegion);
+		// Ban đầu cho tất cả di chuyển về hướng bên trái
 		Enemy_Status(0);
+		
 		mScene.attachChild(enemy_src_AnimatedSprite);
 		if (loai == 0)
 			enemy_src_AnimatedSprite.animate(new long[] { 100, 100, 100, 100,
@@ -102,6 +106,10 @@ public class Enemy_src {
 			break;
 		}
 	}
+	
+	public int get_Status_Enemy() {
+		return this.huong;
+	}
 
 	// =============================================================================
 	/**
@@ -137,6 +145,10 @@ public class Enemy_src {
 		Enemy_Move(huong, loai);
 	}
 	
+	public void enemy_shoot() {
+		
+	}
+	
 	public void Enemy_Move(int huong,int loai) {
 		if(loai == 0 || loai == 1 )
 			speed = 1;
@@ -146,14 +158,17 @@ public class Enemy_src {
 			speed = 3;
 		else speed = 4;
 		
-		if (huong == 0) {// Trái
+		// Trái
+		if (huong == 0) {
 			if (!enemy.collidesWith(enemy_src_AnimatedSprite.getX(),
 					enemy_src_AnimatedSprite.getY() + 10) && !enemy.collidesWith(
 					enemy_src_AnimatedSprite.getX(),
 					enemy_src_AnimatedSprite.getY()
 							+ enemy_src_AnimatedSprite.getHeight() - 10))
-				moveRelativeXY(-speed, 0);
-		} else if (huong == 1) {// Phải
+				moveRelativeXY(-speed, 0);	
+		} 
+		// Phải
+		else if (huong == 1) {
 			if (!enemy.collidesWith(enemy_src_AnimatedSprite.getX()
 					+ enemy_src_AnimatedSprite.getWidth(),
 					enemy_src_AnimatedSprite.getY() + 10) && !enemy.collidesWith(
@@ -162,14 +177,18 @@ public class Enemy_src {
 					enemy_src_AnimatedSprite.getY()
 							+ enemy_src_AnimatedSprite.getHeight() - 10))
 				moveRelativeXY(speed, 0);
-		} else if (huong == 2) {// Lên
+		}
+		// Lên
+		else if (huong == 2) {
 			if (!enemy.collidesWith(enemy_src_AnimatedSprite.getX() + 10,
 					enemy_src_AnimatedSprite.getY()) && !enemy.collidesWith(
 					enemy_src_AnimatedSprite.getX()
 							+ enemy_src_AnimatedSprite.getWidth() - 10,
 					enemy_src_AnimatedSprite.getY()))
 				moveRelativeXY(0, -speed);
-		} else if (huong == 3) {// Xuống
+		}
+		// Xuống
+		else if (huong == 3) {
 			if (!enemy.collidesWith(enemy_src_AnimatedSprite.getX() + 10,
 					enemy_src_AnimatedSprite.getY()
 							+ enemy_src_AnimatedSprite.getHeight()) && !enemy
