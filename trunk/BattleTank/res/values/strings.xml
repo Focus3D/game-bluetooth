@@ -5,10 +5,22 @@
     <string name="app_name">BattleTank</string>
     <string name="info">       THÔNG TIN NHÀ PHÁT TRIỂN \n\n
         Trịnh Phước Hoàng \n
-        s/n: 25/09/1990\n        	</string>
-	<string name="username">UserName</string>
-	<string name="password">PassWord</string>
-    
+        s/n: 25/09/1990\n	</string>
+    <string name="play">Play</string>
+    <string name="infor">Information</string>
+    <string name="exit">Exit</string>
+    <string name="string_thoat">Bạn muốn thoát khỏi game?.</string>
+    <string name="string_gameover">Rất tiếc. Bạn đã thua.</string>
+    <string name="username">UserName</string>
+    <string name="password">PassWord</string>
+    <string name="string_chienthang">         Xin chúc mừng bạn.\n
+         Bạn đã vượt qua được tất cả các thử thách, những phần khó nhất bạn đã hoàn thành. Bạn là 1 người chơi rất 
+         giỏi và tuyệt vời. \n
+         Với phiên bản tiếp theo thì bạn sẽ phải chiến đấu với nhiều loại quái vật khác, mỗi
+         quái vật lại có những ưu và nhược điểm khác nhau.\n
+         Chúc bạn luôn có thời gian vui vẻ với game Bom.\n
+         \n
+         Xin chân thành cảm ơn.</string>
 
     <style name="ButtonText">
         <item name="android:layout_width">fill_parent</item>
