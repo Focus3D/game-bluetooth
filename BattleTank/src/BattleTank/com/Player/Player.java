@@ -25,9 +25,12 @@ public class Player implements InterFaceSprite {
 	private float positionX = 0;
 	private float positionY = 0;
 	
+	// Số mạng của player. Mặc định ban đầu là có 3 lượt chơi
+	private int heart = 03;
+
+	
 	public Bullet[] MyBullet = new Bullet[10];
 	
-//	public ArrayList<Bullet> MyBullet = new ArrayList<Bullet>();
 
 	public Player() {
 	}
@@ -272,5 +275,23 @@ public class Player implements InterFaceSprite {
 	public AnimatedSprite getAnimatedSprite() {
 		return this.player;
 	}
+	
+	// =======================================|| Heart ||================================
+	/**
+	 * Set lượng máu mà người chơi có
+	 */
+	public void setHeart(int heart) {
+		this.heart = heart;
+	}
+
+	/**
+	 * Get lượng máu mà người chơi có
+	 * 
+	 * @return
+	 */
+	public int getHeart() {
+		return this.heart;
+	}
+	
 	
 }
