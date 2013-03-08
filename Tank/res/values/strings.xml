@@ -1,0 +1,79 @@
+<resources>
+
+    <string name="app_name">Tank</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_tank">TankActivity</string>
+    <string name="string_thoat">Are you sure you want to quit ?.</string>
+    <string name="string_gameover">Sorry. You lost.</string>
+     <string name="hello">Hello World, RemoteBluetooth!</string>
+    <string name="btn_find">Find Device</string>
+    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Remote Bluetooth</string>
+    <string name="title_paired_devices">Paired Devices</string>
+    <string name="title_other_devices">Other Available Devices</string>
+    <string name="button_scan">Scan for devices</string>
+    <string name="none_paired">No devices have been paired</string>
+    <string name="scanning">scanning for devices...</string>
+    <string name="none_found">No devices found</string>
+    <string name="select_device">select a device to connect</string>
+    <string name="connect">Connect a device</string>
+    <string name="discoverable">Make discoverable</string>
+    <string name="title_connected_to">connected: </string>
+    <string name="title_connecting">connecting...</string>
+    <string name="title_not_connected">not connected</string>
+    
+    <string name="string_thongtin">
+        NHÀ PHÁT TRIỂN \n\n
+		Họ và tên: Nguyễn Hoàn \n
+		Trường: ĐH CNTT \n
+		Ngày sinh: 25-8-1990 \n
+		Quê quán: Đồng Nai \n
+		Yahoo: langtuvutru1292 \n
+		Gmail: hoannguyen90.it \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		Skype: HIT_HTDN \n
+		SĐT:  ...... \n\n</string>
+    <string name="info">       THÔNG TIN NHÀ PHÁT TRIỂN \n\n
+        Trịnh Phước Hoàng \n
+        s/n: 25/09/1990\n
+	</string>
+    <string name="play">Play</string>
+    <string name="infor">Information</string>
+    <string name="exit">Exit</string>
+    <string name="username">UserName</string>
+    <string name="password">PassWord</string>
+    <string name="string_chienthang">         Xin chúc mừng bạn.\n
+         Bạn đã vượt qua được tất cả các thử thách, những phần khó nhất bạn đã hoàn thành. Bạn là 1 người chơi rất 
+         giỏi và tuyệt vời. \n
+         Với phiên bản tiếp theo thì bạn sẽ phải chiến đấu với nhiều loại quái vật khác, mỗi
+         quái vật lại có những ưu và nhược điểm khác nhau.\n
+         Chúc bạn luôn có thời gian vui vẻ với game.\n
+         \n
+         Xin chân thành cảm ơn.
+</string>
+	<style name="ButtonText">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+</resources>
