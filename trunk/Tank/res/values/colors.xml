@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="white">#FFFFFF</color>
+	<color name="black">#000000</color>
+	<color name="red">#923233</color>
+	
+	<color name="color_title_list_fiml">#923233</color>
+	<color name="color_text_title">#999999</color>
+	<color name="color_text_chitiet_dienvien">#666666</color>
+	<color name="color_bg_menu">#0F0F0F</color>
+	<color name="color_boder_bottom">#222222</color>
+	<color name="username">#E7AB3B</color>
+	<color name="time">#923233</color>
+	<color name="text_color">#666666</color>
+	
+	<color name="bg_giahan">#F4F4F4</color>
+	<color name="color_title_giahan">#489200</color>
+	
+	<color name="title">#489200</color>
+	<color name="background">#F4F4F4</color>
+	<color name="line_border">#D0DDC4</color>
+	<color name="line">#CECECE</color>
+</resources>

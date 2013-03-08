@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="10" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="map_tiles_1_5" tilewidth="32" tileheight="32">
+  <image source="Images/map_tiles_1_5.png" width="512" height="256"/>
+ </tileset>
+ <tileset firstgid="129" name="map_tiles_1_6" tilewidth="32" tileheight="32">
+  <image source="Images/map_tiles_1_6.png" width="512" height="256"/>
+ </tileset>
+ <tileset firstgid="257" name="map_tiles_2_1" tilewidth="32" tileheight="32">
+  <image source="Images/map_tiles_2_1.png" width="512" height="256"/>
+ </tileset>
+ <tileset firstgid="385" name="map_tiles_2_2" tilewidth="32" tileheight="32">
+  <image source="Images/map_tiles_2_2.png" width="512" height="256"/>
+ </tileset>
+ <tileset firstgid="513" name="map_tiles_2_3" tilewidth="32" tileheight="32">
+  <image source="Images/map_tiles_2_3.png" width="512" height="256"/>
+ </tileset>
+ <tileset firstgid="641" name="map_tiles_2_4" tilewidth="32" tileheight="32">
+  <image source="Images/map_tiles_2_4.png" width="512" height="256"/>
+ </tileset>
+ <tileset firstgid="769" name="vatcan" tilewidth="32" tileheight="32">
+  <image source="Images/vatcan.png" width="32" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="vatcan" value="vatcan"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="bg2" width="15" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC0tgYGBIoADn48EFODCyXlLsGtVLf73kYgCzxIA2WAIAAA==
+  </data>
+ </layer>
+ <layer name="bg" width="15" height="10">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC4tnYGCIpwBzYcGcSBibPLpeBSgtA8XcSGxkeVx6FZD0ySPpVyCgF4Zh+uSR9BNyMyV6KXEzJWFFThyRiwGi3Ks6WAIAAA==
+  </data>
+ </layer>
+ <layer name="vatcan" width="15" height="10">
+  <properties>
+   <property name="vatcan" value="vatcan"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NkZmBgpACTA9D1EjIHXS0hPrFqsbmJkDw19FLiZkrCihRASZoAYQCZor3oWAIAAA==
+  </data>
+ </layer>
+</map>

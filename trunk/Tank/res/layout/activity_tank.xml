@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/nen"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/exit"
+            android:src="@drawable/exit" />
+
+        <ImageButton
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/exit"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/info"
+            android:src="@drawable/info" />
+
+        <ImageButton
+            android:id="@+id/multi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/info"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/multi"
+            android:src="@drawable/multi" />
+
+        <ImageButton
+            android:id="@+id/single"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/multi"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/single"
+            android:src="@drawable/single" />
+         <ImageView
+            android:id="@+id/imageView_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/sound_on"
+            android:padding="10dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
